@@ -134,10 +134,9 @@ class LottoService {
       for (let i = 1; i <= 6; i++) {
         const partialTicketNumber = ticketNumber.slice(i);
         const resultSuffix = this.drawResult!.slice(i);
-        console.log(partialTicketNumber, resultSuffix);
 
         if (partialTicketNumber === resultSuffix) {
-          const prize = ticket.amount * Math.pow(10, i);
+          const prize = ticket.amount * Math.pow(10, partialTicketNumber.length);
           totalPrize += prize;
 
           winningTickets.push({
