@@ -132,18 +132,19 @@ class LottoService {
     this.customerTicket.forEach((ticket) => {
       const ticketNumber = ticket.number.toString();
       for (let i = 1; i <= 6; i++) {
-        const partialTicketNumber = ticketNumber.slice(-i);
-        const resultSuffix = this.drawResult!.slice(-i);
-    
+        const partialTicketNumber = ticketNumber.slice(i);
+        const resultSuffix = this.drawResult!.slice(i);
+        console.log(partialTicketNumber, resultSuffix);
+
         if (partialTicketNumber === resultSuffix) {
           const prize = ticket.amount * Math.pow(10, i);
           totalPrize += prize;
-    
+
           winningTickets.push({
             ...ticket,
             amount: prize,
           });
-  
+
           break;
         }
       }
@@ -228,7 +229,8 @@ async function main() {
           {
             type: "number",
             name: "fixedDigitsCount",
-            message: "Enter the number of digits you want to fix (0 for none, 0-6):",
+            message:
+              "Enter the number of digits you want to fix (0 for none, 0-6):",
             validate: (input) =>
               (input !== undefined && input >= 0 && input <= 6) ||
               "Please enter a number between 0 and 6.",
