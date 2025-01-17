@@ -131,12 +131,21 @@ class LottoService {
 
     this.customerTicket.forEach((ticket) => {
       const ticketNumber = ticket.number.toString();
-      const resultSuffix = this.drawResult!.slice(-ticketNumber.length);
-
-      if (ticketNumber === resultSuffix) {
-        const prize = ticket.amount * Math.pow(10, ticketNumber.length);
-        totalPrize += prize;
-        winningTickets.push({ ...ticket, amount: prize });
+      for (let i = 1; i <= 6; i++) {
+        const partialTicketNumber = ticketNumber.slice(-i);
+        const resultSuffix = this.drawResult!.slice(-i);
+    
+        if (partialTicketNumber === resultSuffix) {
+          const prize = ticket.amount * Math.pow(10, i);
+          totalPrize += prize;
+    
+          winningTickets.push({
+            ...ticket,
+            amount: prize,
+          });
+  
+          break;
+        }
       }
     });
 
